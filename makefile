@@ -1,12 +1,15 @@
-FLAGS= -DDEBUG
-LIBS= -lm
-ALWAYS_REBUILD=makefile
+NVCC = nvcc
+CC = gcc
+FLAGS = -DDEBUG
+NVCCFLAGS = $(FLAGS)
+LIBS = -lm
+ALWAYS_REBUILD = makefile
 
 nbody: nbody.o compute.o
-	gcc $(FLAGS) $^ -o $@ $(LIBS)
-nbody.o: nbody.c planets.h config.h vector.h $(ALWAYS_REBUILD)
-	gcc $(FLAGS) -c $< 
-compute.o: compute.c config.h vector.h $(ALWAYS_REBUILD)
-	gcc $(FLAGS) -c $< 
+	$(NVCC) $(NVCCFLAGS) $^ -o $@ $(LIBS)
+nbody.o: nbody.c planets.h config.h vector.h compute.h $(ALWAYS_REBUILD)
+	$(CC) $(FLAGS) -c $<
+compute.o: compute.cu config.h vector.h compute.h $(ALWAYS_REBUILD)
+	$(NVCC) $(NVCCFLAGS) -c $<
 clean:
-	rm -f *.o nbody 
+	rm -f *.o nbody
