@@ -116,4 +116,5 @@ int main(int argc, char **argv)
 
 	freeDeviceMemory();
 	freeHostMemory();
+	return 0;
 }

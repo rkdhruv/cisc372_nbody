@@ -120,6 +120,7 @@ extern "C" void freeDeviceMemory() {
 	cudaFree(d_hVel);
 	cudaFree(d_mass);
 	cudaFree(d_accels);
+	cudaDeviceReset();
 }
 
 extern "C" void copyHostToDevice() {
